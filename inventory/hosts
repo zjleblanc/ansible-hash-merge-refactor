@@ -1,0 +1,18 @@
+all:
+  children:
+    prod:
+      hosts:
+        prod_vm_1:
+          ansible_host: localhost
+          ansible_connection: local
+        prod_vm_2:
+          ansible_host: localhost
+          ansible_connection: local
+    dev:
+      hosts:
+        dev_vm_1:
+          ansible_host: localhost
+          ansible_connection: local
+        dev_vm_2:
+          ansible_host: localhost
+          ansible_connection: local

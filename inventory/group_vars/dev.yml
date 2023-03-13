@@ -1,0 +1,5 @@
+dev_nfs_mounts:
+  /bigsur:
+    opts: exec
+  /hood: 
+    opts: file_mode=0600,dir_mode=0700

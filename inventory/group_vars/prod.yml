@@ -1,0 +1,5 @@
+prod_nfs_mounts:
+  /yosemite:
+    opts: rw,sync,hard
+  /elcapitan: 
+    opts: bind

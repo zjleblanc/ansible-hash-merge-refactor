@@ -1,0 +1,19 @@
+---
+- name: Example playbook - first play
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: NFS mounts (using replace)
+      ansible.builtin.set_fact:
+        all_nfs_mounts: "{{ nfs_mounts | default([]) }}"
+
+    - name: NFS mounts (merge groups) - Host mount configs take priority
+      loop: "{{ group_names }}"
+      ansible.builtin.set_fact:
+        all_nfs_mounts: "{{ hostvars[inventory_hostname][item + '_nfs_mounts'] | combine(all_nfs_mounts) }}"
+
+    # - name: NFS mounts (merge groups) - Group mount configs take priority
+    #   loop: "{{ group_names }}"
+    #   ansible.builtin.set_fact:
+    #     all_nfs_mounts: "{{ all_nfs_mounts | combine(hostvars[inventory_hostname][item + '_nfs_mounts']) }}"

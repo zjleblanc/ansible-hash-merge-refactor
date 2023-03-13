@@ -1,0 +1,5 @@
+nfs_mounts:
+  /yosemite:
+    opts: rw,sync
+  /rainier: 
+    opts: rw
