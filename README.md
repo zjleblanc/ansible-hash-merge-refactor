@@ -10,12 +10,12 @@ Contains three tasks which show how you can expect hashes to be combined by defa
 
 ## 1st task - default behavior (replace)
 
-By default, any key that exists in host vars will replace a key that exists in corresponding group vars.
+By default, any key that exists in host vars will replace a key that exists in associated group vars.
 
 ```yaml
 ...
 - name: NFS mounts (using replace)
-    ansible.builtin.set_fact:
+  ansible.builtin.set_fact:
     all_nfs_mounts: "{{ nfs_mounts | default([]) }}"
 ```
 
@@ -62,8 +62,8 @@ In order to implement the merge behavior previously available with DEFAULT_HASH_
 - name: NFS mounts (merge groups) - Host mount configs take priority
   loop: "{{ group_names }}"
   ansible.builtin.set_fact:
-  # Curious about the expression? See Note 1.1
-  all_nfs_mounts: "{{ hostvars[inventory_hostname][item + '_nfs_mounts'] | combine(all_nfs_mounts) }}"
+    # Curious about the expression? See Note (1)
+    all_nfs_mounts: "{{ hostvars[inventory_hostname][item + '_nfs_mounts'] | combine(all_nfs_mounts) }}"
 ```
 
 ```yaml
@@ -133,7 +133,7 @@ Consider the 2nd task explanation, but you want group defined nfs_mounts to take
 
 ## Notes
 
-### 1.1 Accessing group vars during execution
+### (1) Accessing group vars during execution
 
 During playbook execution, there is no concept of groupvars. Instead, hosts inherit vars from groups they are a member of and these vars are available in the same way that a hostvar can be accessed. To accomplish a merge using prefixed group vars, we need to reach into the hostvars dict using the relevant group key. A list of group names can be accessed via the `group_names` var. For example:
 ```yaml
