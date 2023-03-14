@@ -1,5 +1,5 @@
 ---
-- name: Example playbook - first play
+- name: Default Hash Merge Example
   hosts: all
   gather_facts: false
 
